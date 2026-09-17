@@ -57,7 +57,7 @@ const TRANSLATIONS = {
     'rsvp.done': 'Рәхмәт! Җавабиңлар йезилди.',
     'rsvp.error': 'Җавапни йоллиғили болмиди. Интернетни тәкшүрүп, қайта синап беқиң.',
     'family.title': 'Сайипханлар',
-    'family.names': 'Әршат вә&nbsp;Асиям<br>Ренат вә&nbsp;Рошәнгүл',
+    'family.names': 'Иршат вә&nbsp;Асиям<br>Ренат вә&nbsp;Рошәнгүл',
     'family.wait': 'Тойғичә қалди...',
     'countdown.days': ['күн', 'күн', 'күн'],
     'countdown.hours': ['саат', 'саат', 'саат'],
