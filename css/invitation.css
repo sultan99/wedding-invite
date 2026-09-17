@@ -1,0 +1,972 @@
+/* ==========================================================================
+   Свадебное приглашение — Имран и Реана
+   Макет мобильный, все размеры заданы в rem: 1rem = 1/425 ширины экрана
+   (с ограничениями для десктопа, см. html), поэтому страница масштабируется
+   пропорционально. Пиксели оставлены только для тонких линий.
+   ========================================================================== */
+
+/* --- Шрифты ------------------------------------------------------------- */
+@font-face {
+  font-family: "Futura Light";
+  src: url("../fonts/futura-light.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Futura Book";
+  src: url("../fonts/futura-book.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "New Rome";
+  src: url("../fonts/new-rome-light.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Champion Script";
+  src: url("../fonts/champion-script.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+}
+
+/*
+  Шрифты с полной кириллицей (казахский и уйгурский наборы: ә ө ү ң қ ғ һ җ ұ і),
+  размещены локально, разбиты на подмножества latin / cyrillic / cyrillic-ext.
+  Raleway — переменный шрифт с осью веса 300–600. В русской версии они запасные,
+  в уйгурской — основные.
+*/
+@font-face {
+  font-family: "Bad Script";
+  src: url("../fonts/bad-script-cyrillic-ext.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: "Bad Script";
+  src: url("../fonts/bad-script-cyrillic.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Bad Script";
+  src: url("../fonts/bad-script-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../fonts/raleway-cyrillic-ext.woff2") format("woff2");
+  font-weight: 300 600;
+  font-display: swap;
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../fonts/raleway-cyrillic.woff2") format("woff2");
+  font-weight: 300 600;
+  font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../fonts/raleway-latin.woff2") format("woff2");
+  font-weight: 300 600;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* --- Переменные --------------------------------------------------------- */
+:root {
+  --font-text: "Futura Light", "Raleway", Arial, sans-serif;
+  --font-bold: "Futura Book", "Raleway", Arial, sans-serif;
+  --font-display: "New Rome", "Times New Roman", serif;
+  --font-script: "Champion Script", cursive;
+
+  --color-text: #000;
+  --color-white: #fff;
+  --color-rose: #ba797d;        /* заголовки, рамка локации */
+  --color-green: #7b9b63;       /* цифры даты */
+  --color-green-dark: #4a6c30;  /* название ресторана */
+  --color-gold: #ffb300;        /* имена на обложке */
+  --color-gold-dark: #e4a000;
+  --color-page: #e1bcbc;
+  --color-button: #b4b897;
+  --color-icon-bg: #ffeef0;
+  --color-program: rgba(190, 149, 156, .8);
+  --color-rsvp: rgba(143, 164, 125, .8);
+
+  /* тонкие линии всегда в пикселях: они не должны расти вместе с масштабом */
+  --line: 1px;
+  --line-bold: 1.5px;
+}
+
+/* --- Уйгурская версия: у Futura и New Rome нет уйгурских букв ---------- */
+:root:lang(ug) {
+  --font-text: "Raleway", Arial, sans-serif;
+  --font-bold: "Raleway", Arial, sans-serif;
+  --font-display: "Bad Script", cursive;
+}
+
+/* рукописные заголовки: у скрипта низкие строчные, поэтому кегль крупнее */
+:lang(ug) .title {
+  padding: 0 16rem;
+  font-size: 54rem;
+}
+
+/* подписи в программе длиннее русских */
+:lang(ug) .timeline__event span {
+  max-width: 170rem;
+  font-size: 17rem;
+  line-height: 21rem;
+}
+
+/* цифры оставляем в New Rome: они там есть, а в рукописном шрифте читаются хуже */
+:lang(ug) .save-the-date__digits,
+:lang(ug) .timeline__event time,
+:lang(ug) .countdown__value,
+:lang(ug) .countdown__unit + .countdown__unit::before {
+  font-family: "New Rome", "Times New Roman", serif;
+}
+
+/* у Raleway берём вес 600 вместо 700, чтобы браузер не рисовал псевдожирный */
+:lang(ug) .field__label,
+:lang(ug) .button--outline {
+  font-weight: 600;
+  font-variation-settings: "wght" 600;
+}
+
+/* --- База --------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /*
+    Масштаб макета: 425 «дизайнерских» пикселей на ширину экрана.
+    Ограничения: карточки не шире 1100px (1100 / 425) и обложка высотой 699rem
+    целиком помещается в окно по высоте (100vh / 760, с запасом на отступы).
+  */
+  font-size: min(calc(100vw / 425), calc(1100px / 425), calc(100vh / 760));
+  -webkit-text-size-adjust: 100%;
+}
+
+/* элементы, выступающие за карточки, не должны расширять страницу по горизонтали */
+html,
+body {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font-text);
+  font-size: 20rem;
+  line-height: 24rem;
+  /* запасные переменные шрифты рисуем тонкими, под стать Futura Light и New Rome */
+  font-variation-settings: "wght" 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Фиксированный фон с цветами (псевдоэлемент вместо background-attachment: fixed — работает на iOS) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("../images/background-flowers.jpg") center / cover no-repeat;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+p {
+  margin: 0;
+}
+
+/* --- Общие элементы ----------------------------------------------------- */
+.invitation {
+  max-width: 425rem;
+  margin: 0 auto;
+  padding: 25rem 13rem 56rem;
+}
+
+.card {
+  position: relative;
+  border-radius: 35rem;
+  background: var(--color-white);
+}
+
+.card + .card {
+  margin-top: 64rem;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 46.5rem;
+  line-height: 72rem;
+  text-align: center;
+  color: var(--color-rose);
+}
+
+.title--light {
+  color: var(--color-white);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 205rem;
+  height: 40rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--color-button);
+  color: var(--color-white);
+  font-family: var(--font-text);
+  font-size: 18.6rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button--outline {
+  border: var(--line) solid var(--color-white);
+  background: transparent;
+  font-family: var(--font-bold);
+  font-weight: 700;
+  font-variation-settings: "wght" 500;
+}
+
+/* --- Конверт (стартовый экран) ------------------------------------------ */
+.is-locked {
+  overflow: hidden;
+}
+
+.envelope {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* фон оверлея из двух половинок, каждая показывает свою часть общей картинки */
+.envelope__backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  overflow: hidden;
+  transition: transform .9s cubic-bezier(.4, 0, .2, 1);
+}
+
+.envelope__backdrop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  background: var(--color-page) url("../images/background-flowers.jpg") center / cover no-repeat;
+}
+
+/* левая половина на 1px шире, чтобы между половинками не было шва */
+.envelope__backdrop--left {
+  left: 0;
+  width: calc(50% + 1px);
+}
+
+.envelope__backdrop--left::before {
+  left: 0;
+}
+
+.envelope__backdrop--right {
+  right: 0;
+}
+
+.envelope__backdrop--right::before {
+  right: 0;
+}
+
+.envelope__button {
+  position: relative;
+  width: 300rem;
+  aspect-ratio: 1066 / 1420;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  opacity: .6;
+  transition: opacity .3s ease;
+}
+
+/* кнопка становится активной, когда страница под конвертом загружена */
+.envelope__button:enabled {
+  opacity: 1;
+}
+
+.envelope__half {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform .9s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* раскрытие: половинки разъезжаются, оверлей исчезает */
+.envelope.is-open .envelope__half--left {
+  transform: translateX(-120vw) rotate(-6deg);
+}
+
+.envelope.is-open .envelope__half--right {
+  transform: translateX(120vw) rotate(6deg);
+}
+
+.envelope.is-open .envelope__backdrop--left {
+  transform: translateX(-100%);
+}
+
+.envelope.is-open .envelope__backdrop--right {
+  transform: translateX(100%);
+}
+
+.envelope.is-open {
+  pointer-events: none;
+}
+
+/* --- Обложка ------------------------------------------------------------ */
+/* только обложка режет содержимое: видео выпущено за края, чтобы скрыть его рамку */
+.hero {
+  overflow: hidden;
+  border-radius: 30rem;
+  aspect-ratio: 398 / 699;
+}
+
+.hero__video {
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  max-width: none;
+  height: 110%;
+  object-fit: cover;
+}
+
+.hero__names {
+  margin: 0;
+  font-weight: 400;
+}
+
+.hero__name {
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  font-family: var(--font-script);
+  font-size: 93rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--color-gold);
+  -webkit-text-stroke: .9rem var(--color-gold-dark);
+}
+
+/* белая обводка: копия текста с толстым белым штрихом под основным слоем */
+.hero__name::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  color: var(--color-white);
+  -webkit-text-stroke: 2.6rem var(--color-white);
+}
+
+.hero__name--groom {
+  top: 19.3%;
+  transform: translateX(-20rem);
+}
+
+.hero__name--bride {
+  top: 34.9%;
+  transform: translateX(60rem);
+}
+
+/* знак «&» между именами: полупрозрачный, под текстом имён */
+.hero__ampersand {
+  position: absolute;
+  top: 19%;
+  left: calc(50% + 54rem);
+  z-index: 0;
+  width: 100rem;
+  fill: var(--color-gold);
+  opacity: .45;
+  pointer-events: none;
+}
+
+.hero__subtitle {
+  position: absolute;
+  top: 46.8%;
+  left: 0;
+  width: 100%;
+  font-size: 17.3rem;
+  line-height: 24rem;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-text-stroke: .5rem currentColor;
+  /* белое свечение в rem, чтобы масштабировалось вместе с текстом */
+  text-shadow: 0 0 6rem #fff, 0 0 10rem #fff, 0 0 16rem #fff, 0 0 24rem #fff, 0 0 32rem #fff;
+  transform: translateX(34rem);
+}
+
+/* --- Вступление и дата -------------------------------------------------- */
+.intro {
+  border-radius: 30rem;
+  padding: 34rem 22rem;
+}
+
+.card + .intro {
+  margin-top: 26rem;
+}
+
+.intro__bismillah {
+  width: 50%;
+  max-width: 300rem;
+  margin: 0 auto 14rem;
+}
+
+.intro__text {
+  line-height: 1.2;
+  text-align: center;
+}
+
+.intro__text + .intro__text {
+  margin-top: 12rem;
+}
+
+.save-the-date {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 18rem;
+  min-height: 200rem;
+  margin-top: 40rem;
+}
+
+.save-the-date__digits {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-family: var(--font-display);
+  font-size: 60rem;
+  line-height: 1;
+  letter-spacing: 5rem;
+  color: var(--color-green);
+}
+
+.save-the-date__line {
+  width: 1px;
+  height: 130rem;
+  background: var(--color-rose);
+}
+
+.save-the-date__label {
+  padding-bottom: 6rem;
+  font-size: 11rem;
+  line-height: 1;
+  letter-spacing: 4rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.save-the-date__bouquet {
+  position: absolute;
+  right: -14%;
+  bottom: -14%;
+  z-index: 1;
+  width: 64%;
+  transform: rotate(13deg);
+  pointer-events: none;
+}
+
+/* --- Гости, календарь, локация ------------------------------------------ */
+.guests {
+  padding: 40rem 11rem 123rem;
+}
+
+.guests__text {
+  margin: 6rem 30rem 0;
+  text-align: center;
+}
+
+.guests__text + .guests__text {
+  margin-top: 24rem;
+}
+
+.calendar__title {
+  margin-top: 53rem;
+}
+
+.calendar {
+  width: 254rem;
+  margin: 6rem auto 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.calendar th,
+.calendar td {
+  padding: 0;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.calendar th {
+  height: 34rem;
+  font-size: 20rem;
+  letter-spacing: 2rem;
+  color: var(--color-green);
+}
+
+.calendar td {
+  height: 35rem;
+  font-size: 17rem;
+  letter-spacing: 1rem;
+}
+
+/* день свадьбы: роза и белый кружок под числом */
+.calendar__wedding {
+  position: relative;
+}
+
+.calendar__wedding time {
+  position: relative;
+  z-index: 2;
+}
+
+.calendar__rose {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: 81rem;
+  max-width: none;
+  transform: translate(-50%, calc(-50% + 2rem));
+}
+
+.calendar__marker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 33rem;
+  height: 33rem;
+  border: var(--line-bold) solid var(--color-rose);
+  border-radius: 50%;
+  background: var(--color-white);
+  opacity: .85;
+  transform: translate(-50%, -50%);
+}
+
+.location {
+  position: relative;
+  z-index: 1;
+  height: 220rem;
+  margin: 88rem 9rem 0;
+  padding-top: 44rem;
+  border: var(--line) solid var(--color-rose);
+  text-align: center;
+}
+
+/* белая подложка над кнопкой, прячет верхнюю часть цветов */
+.location::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 244rem;
+  height: 50rem;
+  background: var(--color-white);
+  transform: translateX(-50%);
+}
+
+.location__title {
+  position: absolute;
+  top: -35rem;
+  left: 50%;
+  padding: 0 18rem;
+  background: var(--color-white);
+  transform: translateX(-50%);
+}
+
+.location__lead {
+  line-height: 28rem;
+}
+
+.location__venue {
+  font-weight: 700;
+  margin-top: 14rem;
+  color: var(--color-green-dark);
+}
+
+.location__address {
+  font-size: 21rem;
+  line-height: 28rem;
+}
+
+.location__button {
+  position: absolute;
+  bottom: -20rem;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
+}
+
+/* цветы под кнопкой; верх прячется за белой подложкой кнопки */
+.guests__flowers {
+  position: absolute;
+  bottom: 16rem;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  width: 267rem;
+  margin: 0 auto;
+}
+
+/* --- Видео с кольцами --------------------------------------------------- */
+/* карточка выше кадра: края видео обрезаются, в фокусе центр */
+.rings {
+  overflow: hidden;
+  aspect-ratio: 1 / 1.5;
+}
+
+.rings__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* приглушённые цвета: меньше насыщенности, чуть серее и мягче по контрасту */
+  filter: saturate(.6) grayscale(.15) contrast(.95) brightness(1.03);
+}
+
+/* --- Программа дня ------------------------------------------------------ */
+.program {
+  border-radius: 40rem;
+  padding: 39rem 0 32rem;
+  background: var(--color-program);
+}
+
+.timeline {
+  position: relative;
+  margin: 4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* вертикальная линия по центру, поверх венков */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 26rem;
+  bottom: 22rem;
+  left: 50%;
+  z-index: 2;
+  width: 1px;
+  background: var(--color-white);
+}
+
+.timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  height: 162rem;
+}
+
+/* точка на линии */
+.timeline__item::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  width: 13rem;
+  height: 13rem;
+  border-radius: 50%;
+  background: var(--color-white);
+  transform: translate(-50%, -50%);
+}
+
+/* чётные строки: иконка справа, время слева */
+.timeline__item:nth-child(even) .timeline__icon {
+  order: 2;
+}
+
+.timeline__icon {
+  position: relative;
+  isolation: isolate;
+  width: 98rem;
+  height: 98rem;
+  justify-self: center;
+}
+
+/* венок за кружком, смещён к центральной линии */
+.timeline__wreath {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  width: 201rem;
+  height: 201rem;
+  max-width: none;
+  transform: translate(calc(-50% + 35rem), -50%);
+}
+
+.timeline__wreath--mirrored {
+  width: 195rem;
+  height: 195rem;
+  transform: translate(calc(-50% - 35rem), -50%);
+}
+
+/* розовый кружок отдельным слоем, чтобы не обрезать углы иконки */
+.timeline__icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
+  background: var(--color-icon-bg);
+}
+
+.timeline__symbol {
+  position: absolute;
+  top: 7rem;
+  left: 7rem;
+  z-index: 2;
+  width: 84rem;
+  height: 84rem;
+  object-fit: contain;
+}
+
+.timeline__event {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--color-white);
+}
+
+.timeline__event time {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 50.5rem;
+  line-height: 50rem;
+}
+
+.timeline__event span {
+  display: block;
+  max-width: 114rem;
+  margin: 0 auto;
+}
+
+/* --- Анкета гостя ------------------------------------------------------- */
+.rsvp {
+  border-radius: 40rem;
+  padding: 40rem 36rem 52rem;
+  background: var(--color-rsvp);
+  color: var(--color-white);
+}
+
+.rsvp__text {
+  margin: 6rem 12rem 0;
+  text-align: center;
+}
+
+.rsvp__form {
+  margin-top: 20rem;
+}
+
+.field {
+  display: block;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.field + .field {
+  margin-top: 27rem;
+}
+
+.field__label {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-bold);
+  font-weight: 700;
+  font-variation-settings: "wght" 500;
+  font-size: 21rem;
+  line-height: 1.5;
+}
+
+.field__input {
+  display: block;
+  width: 100%;
+  height: 40rem;
+  margin-top: 6rem;
+  padding: 0;
+  border: 0;
+  border-bottom: var(--line) solid var(--color-white);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-white);
+  font-family: var(--font-text);
+  font-size: 20rem;
+  outline: none;
+}
+
+.field__input::placeholder {
+  color: rgba(255, 255, 255, .6);
+}
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 13rem;
+  margin-top: 13rem;
+  font-size: 18.6rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.radio:first-of-type {
+  margin-top: 11rem;
+}
+
+.radio__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.radio__mark {
+  flex: none;
+  width: 27rem;
+  height: 27rem;
+  border: var(--line-bold) solid var(--color-white);
+  border-radius: 50%;
+  opacity: .6;
+}
+
+.radio__input:checked + .radio__mark {
+  opacity: 1;
+  box-shadow: inset 0 0 0 6rem var(--color-white);
+}
+
+.radio__input:focus-visible + .radio__mark {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+.rsvp__submit {
+  display: flex;
+  margin: 50rem auto 0;
+}
+
+.rsvp__submit:disabled {
+  opacity: .6;
+  cursor: default;
+}
+
+.rsvp__done,
+.rsvp__error {
+  margin-top: 40rem;
+  text-align: center;
+}
+
+.rsvp__error {
+  margin-top: 16rem;
+  font-size: 16rem;
+  line-height: 20rem;
+}
+
+/* --- Родители и обратный отсчёт ---------------------------------------- */
+.family {
+  padding: 40rem 11rem 12rem;
+  text-align: center;
+}
+
+.family__names {
+  margin-top: 6rem;
+}
+
+.family__wait {
+  margin-top: 60rem;
+}
+
+.countdown {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: 9rem;
+}
+
+.countdown__unit {
+  position: relative;
+  width: 82rem;
+}
+
+/* двоеточие ровно посередине между соседними числами */
+.countdown__unit + .countdown__unit::before {
+  content: ":";
+  position: absolute;
+  top: -3rem;
+  left: 0;
+  font-family: var(--font-display);
+  font-size: 33rem;
+  line-height: 1;
+  color: var(--color-rose);
+  transform: translateX(-50%);
+}
+
+.countdown__value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 33rem;
+  line-height: 1;
+  color: var(--color-rose);
+}
+
+.countdown__label {
+  display: block;
+  margin-top: 1rem;
+  font-size: 17.3rem;
+  line-height: 22.6rem;
+}
+
+.family__bouquet {
+  width: 229rem;
+  height: 229rem;
+  margin: -30rem auto 0;
+  object-fit: contain;
+}

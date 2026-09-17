@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="only light">
+  <meta name="robots" content="noindex">
+  <meta name="format-detection" content="telephone=no">
+
+  <title data-i18n="meta.title">Имран и Реана — приглашение на свадьбу</title>
+  <meta name="description" data-i18n-content="meta.description" content="Приглашение на свадьбу Имрана и Реаны. 18 октября 2026, ресторан Акмаржан.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" data-i18n-content="meta.title" content="Имран и Реана — приглашение на свадьбу">
+  <meta property="og:description" content="18 октября 2026, ресторан Акмаржан">
+  <meta property="og:url" content="https://sultan99.github.io/wedding-invite/">
+  <meta property="og:image" content="https://sultan99.github.io/wedding-invite/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image" content="https://sultan99.github.io/wedding-invite/images/og-image-portrait.jpg">
+  <meta property="og:image:width" content="736">
+  <meta property="og:image:height" content="1044">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://sultan99.github.io/wedding-invite/images/og-image.jpg">
+
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="preload" href="fonts/futura-light.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="fonts/futura-book.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="fonts/new-rome-light.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="fonts/champion-script.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="css/invitation.css">
+</head>
+<body class="is-locked">
+
+<!-- Конверт: закрывает страницу, пока грузятся ассеты; по клику раскрывается и включает музыку -->
+<div class="envelope" id="envelope">
+  <div class="envelope__backdrop envelope__backdrop--left"></div>
+  <div class="envelope__backdrop envelope__backdrop--right"></div>
+  <button class="envelope__button" type="button" data-i18n-aria="envelope.open" aria-label="Открыть приглашение" disabled>
+    <img class="envelope__half envelope__half--left" src="images/envelope-left.png" alt="">
+    <img class="envelope__half envelope__half--right" src="images/envelope-right.png" alt="">
+  </button>
+</div>
+
+<main class="invitation">
+
+  <!-- Обложка: видео, музыка, имена -->
+  <section class="card hero">
+    <video class="hero__video" src="media/wedding-car.mp4" poster="media/wedding-car-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+    <audio id="music" src="media/background-music.mp3" loop preload="auto"></audio>
+    <svg class="hero__ampersand" viewBox="1320 40 140 212" aria-hidden="true">
+      <path d="M1438.7 129.6C1428.7 129.6 1418.7 129.6 1408.7 129.6C1408.7 128.2 1408.7 126.8 1408.7 125.4C1424.9 125.4 1441.1 125.4 1457.3 125.4C1457.3 126.8 1457.3 128.2 1457.3 129.6C1452.6 129.6 1448 129.6 1443.3 129.6C1443.3 137.3 1443.3 145.1 1443.3 152.8C1443.3 177.7 1437.1 196.5 1424.7 209.5C1433.3 222 1441.9 234.5 1450.5 247C1449.7 247.5 1448.8 248 1448 248.5C1439.2 236.6 1430.4 224.7 1421.6 212.8C1415.6 218.3 1408.7 222.4 1400.9 225C1393.1 227.6 1385.4 228.9 1377.6 228.9C1367.5 228.9 1358.2 226.9 1350 222.9C1341.9 218.8 1335.5 213.2 1330.8 206.1C1326.2 198.9 1323.8 190.6 1323.8 181.3C1323.8 171.6 1326.7 162.4 1332.4 153.6C1338.1 144.6 1347.2 136.6 1359.8 129.6C1358.8 128.4 1357.9 127.1 1356.9 125.9C1349.4 115.9 1344.1 107.6 1341.2 100.9C1338.2 94.1 1336.8 87.7 1336.8 81.5C1336.8 72.8 1339 65.6 1343.5 59.7C1348.1 53.9 1353.9 49.6 1360.8 46.8C1367.7 44 1374.7 42.7 1381.8 42.7C1385 42.7 1388 42.9 1390.6 43.4C1393.1 44 1396.3 44.8 1400.1 46C1405 47.4 1408.3 48.1 1410.2 48.1C1413.8 48.1 1417.4 46.3 1421.1 42.7C1421.6 42.7 1422.1 42.7 1422.6 42.7C1422.6 50.4 1422.6 58.2 1422.6 65.9C1422.1 65.9 1421.6 65.9 1421.1 65.9C1413.8 60.1 1406.4 55.6 1398.8 52.5C1391.2 49.4 1383.8 47.8 1376.6 47.8C1367.5 47.8 1359.8 50.3 1353.6 55.3C1347.5 60.2 1344.5 67.6 1344.5 77.6C1344.5 83.4 1346 89.6 1348.9 96.2C1351.8 102.7 1356.6 110.8 1363.1 120.2C1383.1 149 1403 177.8 1422.9 206.6C1433.4 194.4 1438.7 177.1 1438.7 154.9C1438.7 146.5 1438.7 138 1438.7 129.6ZM1333.1 179.2C1333.1 189.2 1335.6 197.6 1340.6 204.3C1345.6 210.8 1351.9 215.8 1359.5 219C1367.3 222.1 1375.2 223.7 1383.3 223.7C1397.8 223.7 1409.9 219.1 1419.5 210C1400.4 184.3 1381.2 158.6 1362.1 132.9C1342.8 145.2 1333.1 160.6 1333.1 179.2Z"/>
+    </svg>
+    <h1 class="hero__names">
+      <span class="hero__name hero__name--groom" data-text="Имран">Имран</span>
+      <span class="hero__name hero__name--bride" data-text="Реана">Реана</span>
+    </h1>
+    <p class="hero__subtitle" data-i18n="hero.subtitle">Приглашение на свадьбу</p>
+  </section>
+
+  <!-- Вступление и дата -->
+  <section class="card intro">
+    <img class="intro__bismillah" src="images/in-the-name-of-god.png" data-i18n-alt="intro.bismillah" alt="Во имя Аллаха, Милостивого, Милосердного">
+    <p class="intro__text" data-i18n="intro.love">Любовь&nbsp;— это дар небес, а&nbsp;союз двух сердец&nbsp;— благословение Всевышнего.</p>
+    <p class="intro__text" data-i18n="intro.invite">С&nbsp;трепетом и&nbsp;радостью в&nbsp;сердце мы приглашаем вас разделить с&nbsp;нами один из&nbsp;самых прекрасных моментов нашей жизни&nbsp;— день, когда наши судьбы соединятся в&nbsp;единое целое.</p>
+
+    <div class="save-the-date">
+      <time class="save-the-date__digits" datetime="2026-10-18">
+        <span>18</span>
+        <span>10</span>
+        <span>26</span>
+      </time>
+      <span class="save-the-date__line"></span>
+      <span class="save-the-date__label" data-i18n="intro.saveTheDate">Save the date</span>
+      <img class="save-the-date__bouquet" src="images/bouquet-date.png" alt="">
+    </div>
+  </section>
+
+  <!-- Обращение к гостям, календарь, локация -->
+  <section class="card guests">
+    <h2 class="title guests__title" data-i18n="guests.title">Дорогие гости!</h2>
+    <p class="guests__text" data-i18n="intro.invite">С&nbsp;трепетом и&nbsp;радостью в&nbsp;сердце мы приглашаем вас разделить с&nbsp;нами один из&nbsp;самых прекрасных моментов нашей жизни&nbsp;— день, когда наши судьбы соединятся в&nbsp;единое целое.</p>
+    <p class="guests__text" data-i18n="guests.wish">Пусть этот день станет началом истории, полной любви, верности и&nbsp;счастья, а&nbsp;ваше присутствие озарит его особым светом.</p>
+
+    <h2 class="title calendar__title" data-i18n="calendar.month">Октябрь</h2>
+    <table class="calendar">
+      <thead>
+        <tr>
+          <th data-i18n="calendar.mon">пн</th><th data-i18n="calendar.tue">вт</th><th data-i18n="calendar.wed">ср</th><th data-i18n="calendar.thu">чт</th><th data-i18n="calendar.fri">пт</th><th data-i18n="calendar.sat">сб</th><th data-i18n="calendar.sun">вс</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+        <tr><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td></tr>
+        <tr>
+          <td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td>
+          <td class="calendar__wedding">
+            <img class="calendar__rose" src="images/calendar-rose.png" alt="">
+            <span class="calendar__marker"></span>
+            <time datetime="2026-10-18">18</time>
+          </td>
+        </tr>
+        <tr><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td></tr>
+        <tr><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <div class="location">
+      <h2 class="title location__title" data-i18n="location.title">Локация</h2>
+      <p class="location__lead" data-i18n="location.lead">Будем ждать вас по адресу:</p>
+      <p class="location__venue" data-i18n="location.venue">Ресторан Акмаржан</p>
+      <p class="location__address" data-i18n="location.address">ул. Атагельды Исмаилова 28</p>
+      <a class="button location__button" href="https://go.2gis.com/QRQPa" target="_blank" rel="noopener" data-i18n="location.map">Посмотреть на карте</a>
+    </div>
+    <img class="guests__flowers" src="images/flowers-location.png" alt="">
+  </section>
+
+  <!-- Программа дня -->
+  <section class="card program">
+    <h2 class="title title--light" data-i18n="program.title">Программа дня</h2>
+    <ol class="timeline">
+      <li class="timeline__item">
+        <div class="timeline__icon">
+          <img class="timeline__wreath" src="images/wreath-left.png" alt="">
+          <img class="timeline__symbol" src="images/program-glasses.png" alt="">
+        </div>
+        <p class="timeline__event">
+          <time>14:00</time>
+          <span data-i18n="program.gathering">Сбор гостей</span>
+        </p>
+      </li>
+      <li class="timeline__item">
+        <div class="timeline__icon">
+          <img class="timeline__wreath timeline__wreath--mirrored" src="images/wreath-right.png" alt="">
+          <img class="timeline__symbol" src="images/program-couple.png" alt="">
+        </div>
+        <p class="timeline__event">
+          <time>14:30</time>
+          <span data-i18n="program.ceremony">Церемония</span>
+        </p>
+      </li>
+      <li class="timeline__item">
+        <div class="timeline__icon">
+          <img class="timeline__wreath" src="images/wreath-left.png" alt="">
+          <img class="timeline__symbol" src="images/program-car.png" alt="">
+        </div>
+        <p class="timeline__event">
+          <time>17:00</time>
+          <span data-i18n="program.end">Завершение вечера</span>
+        </p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Видео с кольцами -->
+  <section class="card rings">
+    <video class="rings__video" src="media/rings.mp4" muted loop playsinline preload="metadata" data-play-in-view></video>
+  </section>
+
+  <!-- Анкета гостя -->
+  <section class="card rsvp">
+    <h2 class="title title--light" data-i18n="rsvp.title">Анкета гостя</h2>
+    <p class="rsvp__text" data-i18n="rsvp.text">Ваши ответы помогут нам при организации свадьбы, пожалуйста, заполните форму до&nbsp;01.10.2026</p>
+
+    <!--
+      Ответы уходят в Google Forms «Свадьба Имрана и Реаны — анкета гостя».
+      Имена полей entry.XXXX — идентификаторы вопросов формы; варианты ответа
+      должны совпадать с вариантами в Google-форме слово в слово.
+    -->
+    <form class="rsvp__form" method="post" action="https://docs.google.com/forms/d/e/1FAIpQLSeu2_0ng3BpGLKuyEocfwZ6OBNeCC8xpW0EcB-nBi21Jo9a8g/formResponse">
+      <label class="field">
+        <span class="field__label" data-i18n="rsvp.name">Ваши имя и фамилия</span>
+        <input class="field__input" type="text" name="entry.974818995" data-i18n-placeholder="rsvp.namePlaceholder" placeholder="Иван и Мария Ивановы" autocomplete="name" required>
+      </label>
+
+      <fieldset class="field">
+        <legend class="field__label" data-i18n="rsvp.attendance">Сможете ли присутствовать на свадьбе?</legend>
+        <label class="radio">
+          <input class="radio__input" type="radio" name="entry.443748493" value="Да, конечно!" required>
+          <span class="radio__mark"></span>
+          <span data-i18n="rsvp.yes">Да, конечно!</span>
+        </label>
+        <label class="radio">
+          <input class="radio__input" type="radio" name="entry.443748493" value="К сожалению, не смогу">
+          <span class="radio__mark"></span>
+          <span data-i18n="rsvp.no">К сожалению, не смогу</span>
+        </label>
+      </fieldset>
+
+      <button class="button button--outline rsvp__submit" type="submit" data-i18n="rsvp.submit">Отправить</button>
+    </form>
+    <p class="rsvp__done" data-i18n="rsvp.done" hidden>Спасибо! Ваш ответ записан.</p>
+    <p class="rsvp__error" data-i18n="rsvp.error" hidden>Не удалось отправить ответ. Проверьте интернет и попробуйте ещё раз.</p>
+  </section>
+
+  <!-- Родители -->
+  <section class="card family">
+    <h2 class="title" data-i18n="family.title">Сайпханлар</h2>
+    <p class="family__names" data-i18n="family.names">Эршат и&nbsp;Асиям<br>Ренат и&nbsp;Рошангуль</p>
+
+    <h2 class="title family__wait" data-i18n="family.wait">Ждем вас через...</h2>
+    <div class="countdown" data-target="2026-10-18T14:00:00+05:00">
+      <div class="countdown__unit">
+        <span class="countdown__value">0</span>
+        <span class="countdown__label">дней</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__value">00</span>
+        <span class="countdown__label">часов</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__value">00</span>
+        <span class="countdown__label">минут</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__value">00</span>
+        <span class="countdown__label">секунд</span>
+      </div>
+    </div>
+    <img class="family__bouquet" src="images/bouquet-family.png" alt="">
+  </section>
+
+</main>
+<script src="js/i18n.js" defer></script>
+<script src="js/personalize.js" defer></script>
+<script src="js/countdown.js" defer></script>
+<script src="js/envelope.js" defer></script>
+<script src="js/video-in-view.js" defer></script>
+<script src="js/rsvp.js" defer></script>
+</body>
+</html>
