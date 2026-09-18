@@ -276,8 +276,17 @@
 
     <fieldset>
       <label class="label" for="names">Имена гостей</label>
-      <input class="input" id="names" type="text" placeholder="Султан, Гульзара" inputmode="text">
-      <p class="hint">Имена через запятую, пробелы внутри сохраняются: «Максум ака, Рошангуль ада». Пусто — «Дорогие гости!»</p>
+      <input class="input" id="names" type="text" placeholder="Илхам, Шахноза" inputmode="text">
+      <p class="hint">Имена через запятую, пробелы внутри сохраняются: «Илхам ака, Шахноза һәдә». Пусто — «Дорогие гости!»</p>
+    </fieldset>
+
+    <fieldset id="genderBlock" hidden>
+      <legend>Обращение</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="gender" value="m"><span id="optHe"></span></label>
+        <label class="choice"><input type="radio" name="gender" value="f"><span id="optShe"></span></label>
+      </div>
+      <p class="hint">Для одного имени род выбирается здесь. Несколько имён через запятую — всегда «Дорогие».</p>
     </fieldset>
   </form>
 
@@ -316,43 +325,63 @@
   const previewTitle = document.getElementById('previewTitle');
   const previewMeta = document.getElementById('previewMeta');
   const lengthLabel = document.getElementById('length');
+  const genderBlock = document.getElementById('genderBlock');
+  const optHe = document.getElementById('optHe');
+  const optShe = document.getElementById('optShe');
+
+  // Автоопределение рода по первому слову: «Шахноза» — она, «Максум ака» — он
+  const guessFeminine = (name) => /[ая]$|гу[лү]ь?$/i.test(name.split(/\s+/)[0]);
+  let lastSingleName = null; // при смене имени переключатель сбрасывается на автоопределение
 
   const parseNames = (raw) => raw
     .split(',') // разделитель только запятая, пробелы внутри имени сохраняются
     .map((name) => name.replace(/[&=#?+%\/\\"'«»]/g, '').trim())
     .filter(Boolean);
 
-  const greeting = (names, lang) => {
+  const greeting = (names, lang, gender) => {
     const d = T[lang];
     if (!names.length) return d.title;
     const joined = names.join(` ${d.and} `);
     if (names.length > 1) return `${d.dear} ${joined}!`;
-    const feminine = /[ая]$|гу[лү]ь?$/i.test(names[0].split(/\s+/)[0]); // род по первому слову: «Максум ака» — он
-    return `${feminine ? d.dearShe : d.dearHe} ${joined}!`;
+    return `${gender === 'f' ? d.dearShe : d.dearHe} ${joined}!`;
   };
 
   // Ссылка собирается без encodeURIComponent: кириллица остаётся читаемой, процентов нет.
   // Имена передаются «голыми» ключами (?Султан&Гульзара) — так короче, personalize.js это понимает.
-  const buildLink = ({ lang, music, names }) => {
+  const buildLink = ({ lang, music, names, gender }) => {
     const parts = [];
     if (lang !== 'ru') parts.push(`lang=${lang}`);
     if (music) parts.push(`music=${music}`);
     parts.push(...names.map((name) => name.replace(/\s+/g, '+'))); // пробел → «+», без %
+    if (names.length === 1 && lang === 'ru') parts.push(gender); // &m / &f — род обращения для одного имени
     return parts.length ? `${BASE}?${parts.join('&')}` : BASE;
   };
 
-  const state = () => ({
-    lang: form.lang.value,
-    music: form.music.value,
-    names: parseNames(namesInput.value),
-  });
+  const syncGender = (names, lang) => {
+    const single = names.length === 1 && lang === 'ru';
+    genderBlock.hidden = !single;
+    if (!single) { lastSingleName = null; return 'm'; }
+    if (names[0] !== lastSingleName) { // имя изменилось — предвыбор по автоопределению
+      lastSingleName = names[0];
+      form.gender.value = guessFeminine(names[0]) ? 'f' : 'm';
+    }
+    optHe.textContent = `${T.ru.dearHe} ${names[0]}`;
+    optShe.textContent = `${T.ru.dearShe} ${names[0]}`;
+    return form.gender.value;
+  };
+
+  const state = () => {
+    const lang = form.lang.value;
+    const names = parseNames(namesInput.value);
+    return { lang, music: form.music.value, names, gender: syncGender(names, lang) };
+  };
 
   const render = () => {
     const s = state();
     const link = buildLink(s);
     linkInput.value = link;
     openLink.href = link;
-    previewTitle.textContent = greeting(s.names, s.lang);
+    previewTitle.textContent = greeting(s.names, s.lang, s.gender);
     previewMeta.textContent = `${T[s.lang].langName} · ${MUSIC_NAME[s.music]}`;
     lengthLabel.textContent = `${link.length} символов`;
     copyButton.classList.remove('is-done');

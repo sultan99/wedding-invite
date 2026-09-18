@@ -2,12 +2,13 @@
 //   ?Султан&Гульзара  или  ?guest=Султан,Гульзара — обращение по именам и имя в анкете (разделитель — запятая)
 //   пробел внутри имени передаётся плюсом: ?Максум+ака&Рошангуль+ада
 //   ?music=ar | ?music=ru   — арабская или русская музыка на фоне вместо основной
+//   ?m | ?f                  — род обращения для одного имени: Дорогой / Дорогая (иначе угадывается по имени)
 const MUSIC = {
   ar: 'media/background-music-ar.mp3',
   ru: 'media/background-music-ru.mp3',
 };
 
-const SERVICE_PARAMS = ['lang', 'music', 'guest'];
+const SERVICE_PARAMS = ['lang', 'music', 'guest', 'm', 'f'];
 
 const guestNames = () => {
   const names = [];
@@ -21,8 +22,10 @@ const guestNames = () => {
 const greeting = (names) => {
   const joined = names.join(` ${t('guests.and')} `);
   if (names.length > 1) return `${t('guests.dear')} ${joined}!`;
-  // род определяем по первому слову: «Максум ака» — он, «Рошангуль» — она
-  const feminine = /[ая]$|гу[лү]ь?$/i.test(names[0].split(/\s+/)[0]);
+  // род: явно из ссылки (&f / &m), иначе по первому слову: «Максум ака» — он, «Рошангуль» — она
+  const feminine = pageParams.has('f') ? true
+    : pageParams.has('m') ? false
+    : /[ая]$|гу[лү]ь?$/i.test(names[0].split(/\s+/)[0]);
   return `${feminine ? t('guests.dearShe') : t('guests.dearHe')} ${joined}!`;
 };
 
