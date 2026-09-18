@@ -783,8 +783,16 @@ p {
 
 .timeline__event span {
   display: block;
-  max-width: 114rem;
+  max-width: 134rem;
   margin: 0 auto;
+}
+
+/* примечание под программой */
+.program__note {
+  margin: 20rem 40rem 0;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--color-white);
 }
 
 /* --- Анкета гостя ------------------------------------------------------- */
