@@ -128,7 +128,6 @@
 /* цифры оставляем в New Rome: они там есть, а в рукописном шрифте читаются хуже */
 :lang(ug) .save-the-date__digits,
 :lang(ug) .timeline__event time,
-:lang(ug) .timeline__time,
 :lang(ug) .countdown__value,
 :lang(ug) .countdown__unit + .countdown__unit::before {
   font-family: "New Rome", "Times New Roman", serif;
@@ -775,18 +774,11 @@ p {
   color: var(--color-white);
 }
 
-.timeline__event time,
-.timeline__time {
+.timeline__event time {
   display: block;
   font-family: var(--font-display);
   font-size: 50.5rem;
   line-height: 50rem;
-}
-
-/* у New Rome и Bad Script нет глифа ∞, берём его из Futura Book */
-.timeline__time--infinity,
-:lang(ug) .timeline__time--infinity {
-  font-family: "Futura Book", var(--font-display);
 }
 
 .timeline__event span {
