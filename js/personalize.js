@@ -1,5 +1,5 @@
 // Персонализация по параметрам ссылки:
-//   ?Султан&Гульзара  или  ?guest=Султан,Гульзара — обращение по именам и имя в анкете
+//   ?Султан&Гульзара  или  ?guest=Султан,Гульзара — обращение по именам и имя в анкете (разделитель — запятая)
 //   пробел внутри имени передаётся плюсом: ?Максум+ака&Рошангуль+ада
 //   ?music=ar | ?music=ru   — арабская или русская музыка на фоне вместо основной
 const MUSIC = {
@@ -12,7 +12,7 @@ const SERVICE_PARAMS = ['lang', 'music', 'guest'];
 const guestNames = () => {
   const names = [];
   for (const [key, value] of pageParams) {
-    if (key === 'guest') names.push(...value.split(/\s*[,;|]\s*|\s+и\s+|\s+вә\s+/));
+    if (key === 'guest') names.push(...value.split(',')); // разделитель только запятая
     else if (value === '' && !SERVICE_PARAMS.includes(key)) names.push(key); // ?guest=Имя&ВтороеИмя
   }
   return names.map((name) => name.replace(/["'«»]/g, '').trim()).filter(Boolean);

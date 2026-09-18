@@ -277,7 +277,7 @@
     <fieldset>
       <label class="label" for="names">Имена гостей</label>
       <input class="input" id="names" type="text" placeholder="Султан, Гульзара" inputmode="text">
-      <p class="hint">Несколько имён через запятую, обращение можно с пробелом: «Максум ака, Рошангуль ада». Пусто — «Дорогие гости!»</p>
+      <p class="hint">Имена через запятую, пробелы внутри сохраняются: «Максум ака, Рошангуль ада». Пусто — «Дорогие гости!»</p>
     </fieldset>
   </form>
 
@@ -318,7 +318,7 @@
   const lengthLabel = document.getElementById('length');
 
   const parseNames = (raw) => raw
-    .split(/\s*[,;|\n]\s*|\s+и\s+|\s+вә\s+/)
+    .split(',') // разделитель только запятая, пробелы внутри имени сохраняются
     .map((name) => name.replace(/[&=#?+%\/\\"'«»]/g, '').trim())
     .filter(Boolean);
 
