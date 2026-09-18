@@ -314,8 +314,8 @@
   };
   const MUSIC_NAME = { '': 'уйгурская музыка', ar: 'арабская музыка', ru: 'русская музыка' };
 
-  // Адрес опубликованного приглашения на GitHub Pages (генератор можно открывать и локально)
-  const BASE = 'https://sultan99.github.io/wedding-invite/';
+  // Адрес приглашения — папка, из которой открыт генератор: работает и на GitHub Pages, и на Netlify
+  const BASE = location.href.replace(/[^/]*$/, '');
 
   const form = document.getElementById('form');
   const namesInput = document.getElementById('names');
