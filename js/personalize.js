@@ -1,5 +1,6 @@
 // Персонализация по параметрам ссылки:
-//   ?guest=Султан&Гульзара  или  ?guest=Султан,Гульзара — обращение по именам и имя в анкете
+//   ?Султан&Гульзара  или  ?guest=Султан,Гульзара — обращение по именам и имя в анкете
+//   пробел внутри имени передаётся плюсом: ?Максум+ака&Рошангуль+ада
 //   ?music=ar | ?music=ru   — арабская или русская музыка на фоне вместо основной
 const MUSIC = {
   ar: 'media/background-music-ar.mp3',
@@ -20,7 +21,8 @@ const guestNames = () => {
 const greeting = (names) => {
   const joined = names.join(` ${t('guests.and')} `);
   if (names.length > 1) return `${t('guests.dear')} ${joined}!`;
-  const feminine = /[ая]$/i.test(names[0]);
+  // род определяем по первому слову: «Максум ака» — он, «Рошангуль» — она
+  const feminine = /[ая]$|гу[лү]ь?$/i.test(names[0].split(/\s+/)[0]);
   return `${feminine ? t('guests.dearShe') : t('guests.dearHe')} ${joined}!`;
 };
 

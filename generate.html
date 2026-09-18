@@ -277,7 +277,7 @@
     <fieldset>
       <label class="label" for="names">Имена гостей</label>
       <input class="input" id="names" type="text" placeholder="Султан, Гульзара" inputmode="text">
-      <p class="hint">Несколько имён через запятую или пробел. Пусто — обращение «Дорогие гости!»</p>
+      <p class="hint">Несколько имён через запятую, обращение можно с пробелом: «Максум ака, Рошангуль ада». Пусто — «Дорогие гости!»</p>
     </fieldset>
   </form>
 
@@ -318,7 +318,7 @@
   const lengthLabel = document.getElementById('length');
 
   const parseNames = (raw) => raw
-    .split(/\s*[,;|\n]\s*|\s+и\s+|\s+вә\s+|\s+/)
+    .split(/\s*[,;|\n]\s*|\s+и\s+|\s+вә\s+/)
     .map((name) => name.replace(/[&=#?+%\/\\"'«»]/g, '').trim())
     .filter(Boolean);
 
@@ -327,7 +327,7 @@
     if (!names.length) return d.title;
     const joined = names.join(` ${d.and} `);
     if (names.length > 1) return `${d.dear} ${joined}!`;
-    const feminine = /[ая]$/i.test(names[0]);
+    const feminine = /[ая]$|гу[лү]ь?$/i.test(names[0].split(/\s+/)[0]); // род по первому слову: «Максум ака» — он
     return `${feminine ? d.dearShe : d.dearHe} ${joined}!`;
   };
 
@@ -337,7 +337,7 @@
     const parts = [];
     if (lang !== 'ru') parts.push(`lang=${lang}`);
     if (music) parts.push(`music=${music}`);
-    parts.push(...names);
+    parts.push(...names.map((name) => name.replace(/\s+/g, '+'))); // пробел → «+», без %
     return parts.length ? `${BASE}?${parts.join('&')}` : BASE;
   };
 
